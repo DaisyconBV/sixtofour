@@ -57,7 +57,11 @@ class SixToFour {
 	 */
 	public static function convSixToFour($addr) {
 		if( ! self::isSix($addr) ) { return false; }
-		return long2ip(hexdec(implode('', array_map(function($a){return str_pad($a, 2, '0', STR_PAD_LEFT);}, array_slice(explode(':', $addr), 1, 4)))));
+		$ip = hexdec(implode('', array_map(function($a){return str_pad($a, 2, '0', STR_PAD_LEFT);}, array_slice(explode(':', $addr), 1, 4))));
+		if (is_int($ip)) {
+			return long2ip($ip);
+		}
+		return null;
 	}
 	
 	/**
